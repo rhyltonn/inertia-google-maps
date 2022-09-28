@@ -137,8 +137,7 @@ export default {
     ready: function (val) {
       console.log("Ready: "+val);
     },
-    geolocation: function (val) {
-      this.query_mod = this.place.address_description;
+    geolocation: function (val) {      
       if(this.verConsole){  
         console.log("Geolocation:");
         console.log(val);

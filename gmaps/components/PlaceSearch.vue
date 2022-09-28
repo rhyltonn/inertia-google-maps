@@ -70,7 +70,7 @@ export default {
       lng: this.geolocation != null ? this.geolocation.lng : null,
       query_address: this.address.query,
       default_zoom: this.zoom != undefined ? this.zoom : 9,
-      query: "",
+      query: this.query_address,
       map: null,
       marker: null,
       place: null,
@@ -93,6 +93,7 @@ export default {
       },
     };
   },
+  
   watch: {
     query_mod: function (val) {
       this.query = val;
@@ -260,6 +261,8 @@ export default {
       );
       if (postalCodeType != null && postalCodeType.length > 0)
         value = postalCodeType[0].long_name;
+        //Adicionando endereço ao pac-input
+        this.query = this.address_description;
       return value;
     },
     initMapByCoordinates(lat, lng, override_zoom = null) {

@@ -70,7 +70,7 @@ export default {
       lng: this.geolocation != null ? this.geolocation.lng : null,
       query_address: this.address.query,
       default_zoom: this.zoom != undefined ? this.zoom : 9,
-      query: this.query_address,
+      query: null,
       map: null,
       marker: null,
       place: null,

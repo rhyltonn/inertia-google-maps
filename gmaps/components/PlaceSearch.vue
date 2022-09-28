@@ -97,6 +97,9 @@ export default {
   watch: {
     query_mod: function (val) {
       this.query = val;
+      if(this.query == ""){
+        this.hideInfoWindow();
+      }
       if(this.verConsole){ 
         console.log("query_mod", val);
       }

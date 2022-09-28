@@ -51,7 +51,8 @@ export default {
       default: 5000,
     },
     address: Object,
-    manually: Object,    
+    manually: Object,
+    query_mod: String,  
 
     verConsole: {
       type: Boolean,
@@ -93,6 +94,12 @@ export default {
     };
   },
   watch: {
+    query_mod: function (val) {
+      this.query = val;
+      if(this.verConsole){ 
+        console.log("query_mod", val);
+      }
+    },
    
     place: function () {
       if (this.place.manually == undefined) {

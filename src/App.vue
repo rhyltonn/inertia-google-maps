@@ -21,6 +21,7 @@
             v-bind:address="address"
             v-bind:verConsole="verConsole"
             v-bind:manually="manually"
+            v-bind:query_mod="query_mod"
             @changed="getMapData"
           >
           </place-search>
@@ -122,6 +123,7 @@ export default {
 
       t_lat: "",
       t_lng: "",
+      query_mod: "",
     };
   },
 
@@ -136,6 +138,7 @@ export default {
       console.log("Ready: "+val);
     },
     geolocation: function (val) {
+      this.query_mod = this.place.address_description;
       if(this.verConsole){  
         console.log("Geolocation:");
         console.log(val);

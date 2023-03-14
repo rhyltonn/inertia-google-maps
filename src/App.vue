@@ -71,10 +71,14 @@
           <button class="btn btn-primary w-100">Save address</button>
         </div>
 
-        <input type="text" v-model="endereco" placeholder="Endereço">       
+        <input type="text" v-model="endereco" placeholder="Endereço">    
+        <p>{{ this.endereco }}</p>   
 
         <div class="mt-3">
-          <button class="btn btn-primary w-100" @click.prevent="mudarEnd()">Mudar Endereço</button>
+          <!-- <button class="btn btn-primary w-100" @click.prevent="mudarEnd()">Mudar Endereço</button> -->
+          <button class="btn btn-primary w-100" @click.prevent="mudarEnd('Recife - PE')">End. 1</button>
+          <button class="btn btn-primary w-100" @click.prevent="mudarEnd('Rio de Janeiro - RJ')">End. 2</button>
+          <button class="btn btn-primary w-100" @click.prevent="mudarEnd('Salvador, BA')">End. 3</button>
           <button class="btn btn-primary w-100" @click.prevent="mudarMap(-22.645000, -43.216510)">Mapa 1</button>
           <button class="btn btn-primary w-100" @click.prevent="mudarMap(-22.759781, -43.451511)">Mapa 2</button>
           <button class="btn btn-primary w-100" @click.prevent="mudarMap(-22.782921, -43.428268)">Mapa 3</button>
@@ -96,7 +100,7 @@ export default {
       verConsole: false,
       endereco: "",
       ready: true, //Add ready:false to stop map from loading, and then when changed to true map will auto load
-      fallbackProcedure: "geolocation", //gps | geolocation | address | manually
+      fallbackProcedure: "address", //gps | geolocation | address | manually
       zoom: 17, //Default Zoom
       geolocation: {
         // If GPS and Find by address fails then, map will be positioned by a default geolocation
@@ -128,15 +132,20 @@ export default {
   },
 
   watch: {
-    address: function (val) {      
+    address: function (val) {       
       console.log("App Address:");
       console.log(val);
       console.log("------------------");
     },
     
     ready: function (val) {
+      if(this.ready == true)
+      {
+        setTimeout(() => this.ready = false, 500);
+      }
       console.log("Ready: "+val);
     },
+    
     geolocation: function (val) {      
       if(this.verConsole){  
         console.log("Geolocation:");
@@ -144,6 +153,7 @@ export default {
         console.log("------------------");
       }
     },
+    
   },
   
   methods: {
@@ -163,14 +173,20 @@ export default {
         console.log("Lng: "+$lng);
       }
     },
-    mudarEnd() {    
+    mudarEnd(end) {    
       this.address = {
-        query: this.endereco,
+        query: end,
         zoom: 15,
       },
       this.fallbackProcedure = "address";
-      this.ready = true;
+      this.ready = true;      
+      
+      if(this.verConsole){        
+        console.log("Endereço: "+this.endereco);
+      }
+      
     },
+
     getMapData(place) {
       this.place = place;
       if(this.verConsole){  
